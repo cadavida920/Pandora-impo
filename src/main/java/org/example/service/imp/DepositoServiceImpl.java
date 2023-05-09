@@ -11,6 +11,9 @@ import org.example.service.DepositoService;
 import org.example.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -58,6 +61,17 @@ public class DepositoServiceImpl  implements DepositoService {
     @Override
     public List<Depositos> consultarDepositoPorCliente(Long idCliente) {
         return depositoRepository.findAllByClienteId(idCliente);
+    }
+
+    @Override
+    public Depositos consultarDepositoPorId(Long idDeposito) {
+        return depositoRepository.findById(idDeposito)
+                .orElseThrow(() -> new EntityNotFoundException("Deposito no encontrado"));
+    }
+
+    @Override
+    public List<Depositos> consultarTodosLosDepositos() {
+        return depositoRepository.findAll();
     }
 
 }

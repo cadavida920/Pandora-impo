@@ -10,4 +10,6 @@ import java.util.List;
 public interface DepositoRepository  extends CrudRepository<Depositos,Long> {
     List<Depositos> findAllByClienteId(Long idCliente);
 
+    List<Depositos> findAll();
+
 }

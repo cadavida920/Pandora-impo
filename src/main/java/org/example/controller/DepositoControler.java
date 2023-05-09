@@ -28,6 +28,18 @@ public class DepositoControler {
         return ResponseEntity.status(HttpStatus.CREATED).body(resultado);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Depositos>> buscarTodosDepositos() {
+        List<Depositos> depositos = depositoService.consultarTodosLosDepositos();
+        return ResponseEntity.ok(depositos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Depositos> buscarDeposito(@PathVariable Long id) {
+        Depositos depositos = depositoService.consultarDepositoPorId(id);
+        return ResponseEntity.ok(depositos);
+    }
+
     @PutMapping
     public ResponseEntity<?> actualizarDeposito(@RequestBody  CrearDepositoDTO depositoDTO){
         Depositos depositos = depositoDTO.transformar();
