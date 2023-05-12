@@ -1,6 +1,5 @@
 package org.example.service.imp;
 
-import org.example.dtos.ProductoDTO;
 import org.example.dtos.UpdateProductoDto;
 import org.example.entity.Cliente;
 import org.example.entity.Producto;
@@ -18,11 +17,23 @@ public class ProductoServiceImpl implements ProductoService {
    private ProductoRepository productoRepository;
 
     @Autowired
-    private ClienteRepository  ClienteRepository;
+    private ClienteRepository clienteRepository;
 
     @Override
     public Producto nuevoProducto(Producto producto) {
-        Cliente cliente = ClienteRepository.findById(producto.getCliente().getId()).get();
+        Cliente cliente = clienteRepository.findById(producto.getCliente().getId()).get();
+        if (cliente.getBalance() > 0d ) {
+            if (cliente.getBalance() >= producto.getValorRestante()) {
+                cliente.setBalance(cliente.getBalance() - producto.getValorRestante());
+                producto.setValorRestante(0d);
+                producto.setEstadoPago("PAGADO");
+            } else {
+                producto.setValorRestante(producto.getValorRestante() - cliente.getBalance());
+                cliente.setBalance(0d);
+                producto.setEstadoPago("PARCIAL");
+            }
+            clienteRepository.save(cliente);
+        }
         producto.setCliente(cliente);
         return productoRepository.save(producto);
     }

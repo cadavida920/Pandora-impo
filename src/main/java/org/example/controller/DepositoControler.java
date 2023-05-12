@@ -39,13 +39,11 @@ public class DepositoControler {
         Depositos depositos = depositoService.consultarDepositoPorId(id);
         return ResponseEntity.ok(depositos);
     }
-
     @PutMapping
     public ResponseEntity<?> actualizarDeposito(@RequestBody  CrearDepositoDTO depositoDTO){
         Depositos depositos = depositoDTO.transformar();
         Depositos depositos1 = depositoService.nuevoDeposito(depositos);
         return ResponseEntity.ok(depositos1);
-
     }
 
 }
