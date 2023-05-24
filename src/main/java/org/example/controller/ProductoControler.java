@@ -1,6 +1,7 @@
 package org.example.controller;
 import org.example.dtos.CrearProductoDTO;
 import org.example.dtos.UpdateProductoDto;
+import org.example.entity.Cliente;
 import org.example.entity.Depositos;
 import org.example.entity.Producto;
 import org.example.service.imp.ProductoServiceImpl;
@@ -36,13 +37,24 @@ public class ProductoControler {
         List<Producto> productos = productoService.consultarProductosPorClienteId(id);
         return ResponseEntity.ok(productos);
     }
-                                // consultarProductoPorId
+
+
     @GetMapping
     @RequestMapping( value = "/consultarProductoPorId/{id}", method = RequestMethod.GET)
     public ResponseEntity<Producto> consultarProductoPorId (@PathVariable Long id){
         Producto producto = this.productoService.consultarProducto(id);
         return ResponseEntity.ok(producto);
     }
+
+    @GetMapping
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ResponseEntity<?> todosLosProductos (){
+        List<Producto> productos = productoService.obtenerTodosLosProductos();
+        return ResponseEntity.ok(productos);
+    }
+
+
+
 
     @PutMapping
     public ResponseEntity<?> actualizarProducto(@RequestBody UpdateProductoDto productoDto){

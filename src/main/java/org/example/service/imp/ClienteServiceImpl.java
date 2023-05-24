@@ -25,11 +25,16 @@ public class ClienteServiceImpl implements ClienteService {
         Optional<Cliente> byId = repository.findById(id);
         return byId.get();
     }
+
+
+
     @Override
     public List<Cliente> obtenerTodosLosClientes() {
         List<Cliente> all = repository.findAll();
         return all;
     }
+
+
     @Override
     public Cliente actualizarCliente(UpdateClienteDto actualizarcliente) {
         Cliente cliente = repository.findById(actualizarcliente.getId()).get();

@@ -4,6 +4,6 @@ import lombok.Data;
 @Data
 public class UpdateProductoDto {
 
-    private int estadoEnvio;
+    private String estadoEnvio;
     private Long id;
 }

@@ -5,6 +5,7 @@ import org.example.dtos.UpdateClienteDto;
 import org.example.entity.Cliente;
 import org.example.entity.Depositos;
 import org.example.entity.Producto;
+import org.example.entity.types.EstadoPago;
 import org.example.repository.ClienteRepository;
 import org.example.repository.DepositoRepository;
 import org.example.service.DepositoService;
@@ -43,11 +44,11 @@ public class DepositoServiceImpl  implements DepositoService {
                         if (valorDeposito.get() >= producto.getValorRestante()) {
                             valorDeposito.set(valorDeposito.get() - producto.getValorRestante());
                             producto.setValorRestante(0d);
-                            producto.setEstadoPago("PAGADO");
+                            producto.setEstadoPago(EstadoPago.PAGADO);
                         } else {
                             producto.setValorRestante(producto.getValorRestante() - valorDeposito.get());
                             valorDeposito.set(0d);
-                            producto.setEstadoPago("PARCIAL");
+                            producto.setEstadoPago(EstadoPago.PARCIAL);
                         }
                     }
                 }

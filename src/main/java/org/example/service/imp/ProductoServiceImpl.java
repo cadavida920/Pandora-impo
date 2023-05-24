@@ -3,6 +3,8 @@ package org.example.service.imp;
 import org.example.dtos.UpdateProductoDto;
 import org.example.entity.Cliente;
 import org.example.entity.Producto;
+import org.example.entity.types.EstadoEnvio;
+import org.example.entity.types.EstadoPago;
 import org.example.repository.ClienteRepository;
 import org.example.repository.ProductoRepository;
 import org.example.service.ProductoService;
@@ -26,11 +28,11 @@ public class ProductoServiceImpl implements ProductoService {
             if (cliente.getBalance() >= producto.getValorRestante()) {
                 cliente.setBalance(cliente.getBalance() - producto.getValorRestante());
                 producto.setValorRestante(0d);
-                producto.setEstadoPago("PAGADO");
+                producto.setEstadoPago(EstadoPago.PAGADO);
             } else {
                 producto.setValorRestante(producto.getValorRestante() - cliente.getBalance());
                 cliente.setBalance(0d);
-                producto.setEstadoPago("PARCIAL");
+                producto.setEstadoPago(EstadoPago.PARCIAL);
             }
             clienteRepository.save(cliente);
         }
@@ -47,10 +49,26 @@ public class ProductoServiceImpl implements ProductoService {
     public List<Producto> consultarProductosPorClienteId(Long id) {
         return productoRepository.findAllByClienteId(id);
     }
+
+
     @Override
     public Producto actualizarProducto( UpdateProductoDto productoDto) {
         Producto producto = consultarProducto(productoDto.getId());
-        producto.setEstadoEnvio(productoDto.getEstadoEnvio());
+        EstadoEnvio estadoEnvio = EstadoEnvio.getEstadoEnvio(productoDto.getEstadoEnvio());
+
+        if (estadoEnvio == null) {
+            throw new IllegalArgumentException("Estado invalido");
+        }
+
+        producto.setEstadoEnvio(estadoEnvio);
         return productoRepository.save(producto);
     }
+
+
+    @Override
+    public List<Producto> obtenerTodosLosProductos(){
+        List<Producto> all = productoRepository.findAll();
+        return all;
+    }
+
 }

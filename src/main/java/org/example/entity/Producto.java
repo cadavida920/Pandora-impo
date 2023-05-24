@@ -3,6 +3,10 @@ package org.example.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.entity.converter.EstadoEnvioConvertidor;
+import org.example.entity.converter.EstadoPagoConvertidor;
+import org.example.entity.types.EstadoEnvio;
+import org.example.entity.types.EstadoPago;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -30,10 +34,12 @@ public class Producto {
     private Double precioVenta;
 
     private Double valorRestante;
-    private int estadoEnvio;
 
-    private String estadoPago;
+    @Convert(converter = EstadoEnvioConvertidor.class)
+    private EstadoEnvio estadoEnvio;
 
+    @Convert(converter = EstadoPagoConvertidor.class)
+    private EstadoPago estadoPago;
 
     @ManyToOne
     @NonNull
