@@ -7,9 +7,12 @@ import org.example.entity.converter.EstadoEnvioConvertidor;
 import org.example.entity.converter.EstadoPagoConvertidor;
 import org.example.entity.types.EstadoEnvio;
 import org.example.entity.types.EstadoPago;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -40,6 +43,14 @@ public class Producto {
 
     @Convert(converter = EstadoPagoConvertidor.class)
     private EstadoPago estadoPago;
+
+    @Column
+    @UpdateTimestamp
+    private Timestamp updatedOn;
+
+    @Column
+    @CreationTimestamp
+    private Timestamp createdOn;
 
     @ManyToOne
     @NonNull

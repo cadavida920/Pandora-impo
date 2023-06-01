@@ -53,9 +53,6 @@ public class ProductoControler {
         return ResponseEntity.ok(productos);
     }
 
-
-
-
     @PutMapping
     public ResponseEntity<?> actualizarProducto(@RequestBody UpdateProductoDto productoDto){
         Producto depositos = this.productoService.actualizarProducto(productoDto);

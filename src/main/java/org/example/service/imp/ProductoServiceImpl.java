@@ -7,6 +7,7 @@ import org.example.entity.types.EstadoEnvio;
 import org.example.entity.types.EstadoPago;
 import org.example.repository.ClienteRepository;
 import org.example.repository.ProductoRepository;
+import org.example.service.EstadoProductosHistoricoService;
 import org.example.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.List;
 public class ProductoServiceImpl implements ProductoService {
     @Autowired
    private ProductoRepository productoRepository;
+
+    @Autowired
+    private EstadoProductosHistoricoService historicoService;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -55,13 +59,14 @@ public class ProductoServiceImpl implements ProductoService {
     public Producto actualizarProducto( UpdateProductoDto productoDto) {
         Producto producto = consultarProducto(productoDto.getId());
         EstadoEnvio estadoEnvio = EstadoEnvio.getEstadoEnvio(productoDto.getEstadoEnvio());
-
+        EstadoEnvio estadoEnvioAnterior = producto.getEstadoEnvio();
         if (estadoEnvio == null) {
             throw new IllegalArgumentException("Estado invalido");
         }
-
         producto.setEstadoEnvio(estadoEnvio);
-        return productoRepository.save(producto);
+        Producto productoGuardado = productoRepository.save(producto);
+        historicoService.guardarHistorico(productoGuardado,estadoEnvioAnterior);
+        return productoGuardado;
     }
 
 

@@ -2,9 +2,7 @@ package org.example.entity.types;
 
 
 import lombok.Getter;
-
 import java.util.stream.Stream;
-
 
 public enum EstadoEnvio  {
     PROCESO_COMPRA ("PC","En proceso de compra"),
@@ -29,6 +27,4 @@ public enum EstadoEnvio  {
                 .findFirst()
                 .orElse(null);
     }
-
-
 }
