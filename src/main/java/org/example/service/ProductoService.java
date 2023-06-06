@@ -10,5 +10,8 @@ public interface ProductoService {
     Producto nuevoProducto (Producto producto);
     Producto consultarProducto (Long id);
     List<Producto> consultarProductosPorClienteId(Long id);
+
+    List<Producto> obtenerTodosLosProductos();
+
     Producto actualizarProducto(UpdateProductoDto producto);
 }

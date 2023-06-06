@@ -4,6 +4,8 @@
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/Cliente.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/controller/DepositoControler.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/Producto.java
+/Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/converter/EstadoEnvioConvertidor.java
+/Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/converter/EstadoPagoConvertidor.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/Main.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/controller/ProductoControler.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/service/ProductoService.java
@@ -13,9 +15,11 @@
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/service/DepositoService.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/dtos/CrearDepositoDTO.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/service/imp/ProductoServiceImpl.java
+/Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/types/EstadoEnvio.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/controller/ClienteControler.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/dtos/UpdateClienteDto.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/dtos/ProductoDTO.java
+/Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/types/EstadoPago.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/entity/Depositos.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/dtos/DepositosDTO.java
 /Users/mac/Documents/projects/pandora-Impo/src/main/java/org/example/dtos/CrearProductoDTO.java
