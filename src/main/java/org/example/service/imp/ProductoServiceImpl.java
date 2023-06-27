@@ -5,6 +5,8 @@ import org.example.entity.Cliente;
 import org.example.entity.Producto;
 import org.example.entity.types.EstadoEnvio;
 import org.example.entity.types.EstadoPago;
+import org.example.exceptions.ApiError;
+import org.example.exceptions.ResourceNotFound;
 import org.example.repository.ClienteRepository;
 import org.example.repository.ProductoRepository;
 import org.example.service.EstadoProductosHistoricoService;
@@ -45,7 +47,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
     @Override
     public Producto consultarProducto(Long id) {
-        Producto producto = productoRepository.findById(id).get();
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Producto no encontrado"));
         return producto;
     }
 
@@ -61,7 +64,7 @@ public class ProductoServiceImpl implements ProductoService {
         EstadoEnvio estadoEnvio = EstadoEnvio.getEstadoEnvio(productoDto.getEstadoEnvio());
         EstadoEnvio estadoEnvioAnterior = producto.getEstadoEnvio();
         if (estadoEnvio == null) {
-            throw new IllegalArgumentException("Estado invalido");
+            throw new ApiError("Estado envio invalido");
         }
         producto.setEstadoEnvio(estadoEnvio);
         Producto productoGuardado = productoRepository.save(producto);

@@ -1,6 +1,7 @@
 package org.example.service.imp;
 import org.example.dtos.UpdateClienteDto;
 import org.example.entity.Cliente;
+import org.example.exceptions.ResourceNotFound;
 import org.example.repository.ClienteRepository;
 import org.example.service.ClienteService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente obtenerClientePorId(Long id) {
         Optional<Cliente> byId = repository.findById(id);
-        return byId.get();
+        return byId.orElseThrow(() -> new ResourceNotFound("El id de cliente no esta registrado"));
     }
 
 
@@ -37,7 +38,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente actualizarCliente(UpdateClienteDto actualizarcliente) {
-        Cliente cliente = repository.findById(actualizarcliente.getId()).get();
+        Cliente cliente = obtenerClientePorId(actualizarcliente.getId());
         cliente.setNombre(actualizarcliente.getNombre());
         repository.save(cliente);
         return cliente;
